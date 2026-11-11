@@ -1,0 +1,57 @@
+# ==========================================
+# Git Ignore - Proyecto Minería de Datos INE
+# ==========================================
+
+# Entornos virtuales Python
+venv/
+.venv/
+env/
+ENV/
+env.bak/
+venv.bak/
+
+# Compilación y caché de Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Notebooks de Jupyter
+.ipynb_checkpoints/
+*-checkpoint.ipynb
+
+# IDEs y editores
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# Datos brutos y microdatos protegidos (SPSS .sav, etc.)
+data/raw/*
+!data/raw/.gitkeep
+
+# Datasets procesados pesados
+data/processed/*.parquet
+data/processed/*.csv
+!data/processed/.gitkeep
+
+# Reportes automatizados y visualizaciones generadas
+outputs/reports/*.html
+outputs/reports/*.json
+!outputs/reports/.gitkeep
+
+outputs/figures/*.png
+outputs/figures/*.jpg
+outputs/figures/*.jpeg
+outputs/figures/*.svg
+outputs/figures/*.html
+!outputs/figures/.gitkeep
+
+# Archivos de sistema operativo
+Thumbs.db
+Desktop.ini
+.DS_Store
+
