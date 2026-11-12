@@ -51,15 +51,15 @@ from pathlib import Path
 import warnings
 warnings.filterwarnings('ignore')
 
-# Asegurar visibilidad de la carpeta 'src'
+# Asegurar que el directorio de trabajo sea la raíz del proyecto
 current_dir = Path(os.getcwd())
-if (current_dir.parent / "src").exists():
-    src_path = str(current_dir.parent / "src")
-elif (current_dir / "src").exists():
-    src_path = str(current_dir / "src")
+if current_dir.name == "notebooks" or (current_dir.parent / "src").exists():
+    os.chdir(current_dir.parent)
+    project_root = current_dir.parent
 else:
-    src_path = "src"
+    project_root = current_dir
 
+src_path = str(project_root / "src")
 if src_path not in sys.path:
     sys.path.append(src_path)
 
@@ -75,7 +75,7 @@ from eda import AutomatedEDAGenerator
 from visualizacion import SociodemographicVisualizer
 from modelado import PredictiveModelPipeline
 
-print("✓ Módulos arquitectónicos cargados con éxito desde:", src_path)""")
+print("Módulos arquitectónicos cargados con éxito desde:", src_path)""")
 
     # Fase 1 y 2: Ingesta con DuckDB
     add_md("""## 1. Fase 1 y 2: Ingesta de Datos Relacionales con DuckDB y Persistencia Parquet
@@ -91,7 +91,7 @@ En esta sección se ejecutan las siguientes operaciones:
 try:
     print("Iniciando pipeline de ingesta relacional...")
     df = pipeline.run(force_synthetic_if_empty=True)
-    print(f"✓ Ingesta completada con éxito. Dimensiones del dataset: {df.shape[0]} filas x {df.shape[1]} columnas.")
+    print(f"Ingesta completada con éxito. Dimensiones del dataset: {df.shape[0]} filas x {df.shape[1]} columnas.")
 except Exception as e:
     print(f"Error durante la ingesta: {e}")
     raise
@@ -185,7 +185,7 @@ static_coords = Path("outputs/figures/04_coordenadas_paralelas.png")
 if static_coords.exists():
     display(Image(filename=str(static_coords)))
 
-print(f"✓ Visualización interactiva completa guardada en: {inter_p4}")""")
+print(f"Visualización interactiva completa guardada en: {inter_p4}")""")
 
     add_md("""> **Hallazgo Estadístico y Sociodemográfico (Visualización 4):**  
 > El diagrama de coordenadas paralelas multivariadas permite mapear perfiles individuales completos. Se observa que los perfiles que reportan victimización (color diferenciado) tienden a concentrarse en segmentos etarios jóvenes y de edad productiva activa (18-35 años) combinados con elevados niveles de percepción de inseguridad ciudadana, mientras que perfiles de adultos mayores en áreas rurales muestran trayectorias paralelas más atenuadas.""")
@@ -216,7 +216,7 @@ print(f"Total features transformadas tras One-Hot Encoding: {len(feature_names)}
 
 # 4. Entrenar modelos de ensamble
 trained_models = trainer.train_models(X_train, y_train)
-print(f"✓ Modelos entrenados con éxito: {list(trained_models.keys())}")""")
+print(f"Modelos entrenados con éxito: {list(trained_models.keys())}")""")
 
     add_md("""## 5. Fase 5: Evaluación Comparativa de Modelos y Métricas Exhaustivas
 Se computan y comparan:
@@ -301,8 +301,7 @@ display(Image(filename=str(bar_path)))''')
     out_file.parent.mkdir(parents=True, exist_ok=True)
     with open(out_file, "w", encoding="utf-8") as f:
         json.dump(notebook_dict, f, indent=2, ensure_ascii=False)
-    print(f"✓ Notebook maestro generado con éxito en: {out_file} ({len(cells)} celdas)")
+    print(f"Notebook maestro generado con éxito en: {out_file} ({len(cells)} celdas)")
 
 if __name__ == "__main__":
     create_notebook()
-

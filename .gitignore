@@ -37,6 +37,7 @@ data/raw/*
 data/processed/*.parquet
 data/processed/*.csv
 !data/processed/.gitkeep
+notebooks/data/
 
 # Reportes automatizados y visualizaciones generadas
 outputs/reports/*.html
@@ -49,6 +50,7 @@ outputs/figures/*.jpeg
 outputs/figures/*.svg
 outputs/figures/*.html
 !outputs/figures/.gitkeep
+notebooks/outputs/
 
 # Archivos de sistema operativo
 Thumbs.db
